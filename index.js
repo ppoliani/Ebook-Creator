@@ -1,4 +1,4 @@
-const epub = require('epub-press-js');
+const EpubPress = require('epub-press-js');
 
 const ebook = new EpubPress({
   title: 'React Under The Hood',
@@ -23,6 +23,9 @@ const ebook = new EpubPress({
   ]
 });
 
+const onStatusUpdate = status => console.log(status.message)
+ebook.on('statusUpdate', onStatusUpdate);
+
 ebook.publish()
   .then(() =>{
     ebook.download();  // Default epub
@@ -30,6 +33,7 @@ ebook.publish()
   })
   .then(() => {
     console.log('Success!');
-  }).catch((error) => {
+  })
+  .catch((error) => {
       console.log(`Error: ${error}`);
   });
